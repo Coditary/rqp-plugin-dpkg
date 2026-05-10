@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
-  "name": "template",
-  "version": "0.1.0",
-  "summary": "Template wrapper plugin",
-  "description": "ReqPack wrapper template bundle",
+  "name": "dpkg",
+  "version": "1.0.0",
+  "summary": "ReqPack wrapper for dpkg and apt",
+  "description": "ReqPack Lua wrapper plugin for Debian package management via dpkg and apt tools",
   "license": "MIT"
 }

@@ -1,11 +1,9 @@
 return {
-  name = "dpkg install",
+  name = "dpkg install local failure",
   request = {
     action = "install",
     system = "dpkg",
-    packages = {
-      { name = "delta", version = "1.0.0" }
-    },
+    localPath = "/tmp/delta.deb",
   },
   fakeExec = {
     {
@@ -16,20 +14,20 @@ return {
       success = true,
     },
     {
-      match = "apt-get install -y -- 'delta=1.0.0'",
-      exitCode = 0,
-      stdout = "installed\n",
-      stderr = "",
-      success = true,
+      match = "dpkg -i -- '/tmp/delta.deb'",
+      exitCode = 1,
+      stdout = "",
+      stderr = "bad deb\n",
+      success = false,
     },
   },
   expect = {
-    success = true,
-    commands = { "apt-get install -y -- 'delta=1.0.0'" },
-    stdout = { "installed\n" },
-    events = { "installed", "success" },
+    success = false,
+    commands = { "dpkg -i -- '/tmp/delta.deb'" },
+    stderr = { "bad deb\n" },
+    events = { "failed" },
     eventPayloads = {
-      success = "ok",
+      failed = "local dpkg install failed",
     },
   }
 }

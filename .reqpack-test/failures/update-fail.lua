@@ -1,10 +1,10 @@
 return {
-  name = "dpkg install",
+  name = "dpkg update failure",
   request = {
-    action = "install",
+    action = "update",
     system = "dpkg",
     packages = {
-      { name = "delta", version = "1.0.0" }
+      { name = "delta" }
     },
   },
   fakeExec = {
@@ -16,20 +16,20 @@ return {
       success = true,
     },
     {
-      match = "apt-get install -y -- 'delta=1.0.0'",
-      exitCode = 0,
-      stdout = "installed\n",
-      stderr = "",
-      success = true,
+      match = "apt-get install --only-upgrade -y -- 'delta'",
+      exitCode = 100,
+      stdout = "",
+      stderr = "update failed\n",
+      success = false,
     },
   },
   expect = {
-    success = true,
-    commands = { "apt-get install -y -- 'delta=1.0.0'" },
-    stdout = { "installed\n" },
-    events = { "installed", "success" },
+    success = false,
+    commands = { "apt-get install --only-upgrade -y -- 'delta'" },
+    stderr = { "update failed\n" },
+    events = { "failed" },
     eventPayloads = {
-      success = "ok",
+      failed = "dpkg update failed",
     },
   }
 }

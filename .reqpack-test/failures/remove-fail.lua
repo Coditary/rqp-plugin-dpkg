@@ -1,10 +1,10 @@
 return {
-  name = "dpkg install",
+  name = "dpkg remove failure",
   request = {
-    action = "install",
+    action = "remove",
     system = "dpkg",
     packages = {
-      { name = "delta", version = "1.0.0" }
+      { name = "delta" }
     },
   },
   fakeExec = {
@@ -16,20 +16,20 @@ return {
       success = true,
     },
     {
-      match = "apt-get install -y -- 'delta=1.0.0'",
-      exitCode = 0,
-      stdout = "installed\n",
-      stderr = "",
-      success = true,
+      match = "dpkg -r -- 'delta'",
+      exitCode = 1,
+      stdout = "",
+      stderr = "remove failed\n",
+      success = false,
     },
   },
   expect = {
-    success = true,
-    commands = { "apt-get install -y -- 'delta=1.0.0'" },
-    stdout = { "installed\n" },
-    events = { "installed", "success" },
+    success = false,
+    commands = { "dpkg -r -- 'delta'" },
+    stderr = { "remove failed\n" },
+    events = { "failed" },
     eventPayloads = {
-      success = "ok",
+      failed = "dpkg remove failed",
     },
   }
 }

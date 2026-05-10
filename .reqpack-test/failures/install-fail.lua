@@ -1,5 +1,5 @@
 return {
-  name = "dpkg install",
+  name = "dpkg install failure",
   request = {
     action = "install",
     system = "dpkg",
@@ -17,19 +17,19 @@ return {
     },
     {
       match = "apt-get install -y -- 'delta=1.0.0'",
-      exitCode = 0,
-      stdout = "installed\n",
-      stderr = "",
-      success = true,
+      exitCode = 100,
+      stdout = "",
+      stderr = "broken\n",
+      success = false,
     },
   },
   expect = {
-    success = true,
+    success = false,
     commands = { "apt-get install -y -- 'delta=1.0.0'" },
-    stdout = { "installed\n" },
-    events = { "installed", "success" },
+    stderr = { "broken\n" },
+    events = { "failed" },
     eventPayloads = {
-      success = "ok",
+      failed = "dpkg install failed",
     },
   }
 }
