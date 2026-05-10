@@ -97,7 +97,7 @@ jobs:
       - name: Run direct bundle-directory test
         run: |
           ./runtime/rqp test-plugin --help >/dev/null
-          ./runtime/rqp test-plugin --plugin . --preset core
+          ./runtime/rqp test-plugin --plugin "$PWD" --preset core
 
       - name: Run copied bundle-directory test
         run: |
