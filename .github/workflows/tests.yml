@@ -12,7 +12,7 @@ defaults:
     shell: bash
 
 env:
-  REQPACK_RUNTIME_TAG: v1.0.12
+  REQPACK_RUNTIME_TAG: v1.0.15
 
 jobs:
   system-tests-linux:
